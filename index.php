@@ -1,5 +1,6 @@
 <?php
 require_once "controller.php";
+require_once "repository.php";
 
 do {
     echo "\n-------- Menu Distributeur --------\n";
@@ -11,7 +12,6 @@ do {
 
     $choix = trim(readline("Veuillez donner votre choix : "));
 
-  
     verifierChoix($choix);
 
 } while ($choix !== "0");
