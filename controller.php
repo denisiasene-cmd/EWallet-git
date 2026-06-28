@@ -1,7 +1,7 @@
 <?php
-require_once "validator.php";
-require_once "repository.php";
-require_once "services.php";
+include_once "repository.php";
+include_once "validator.php";
+include_once "services.php";
 
 function verifierChoix($choix) {
     switch ($choix) {

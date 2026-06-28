@@ -1,6 +1,5 @@
 <?php
-require_once "controller.php";
-require_once "repository.php";
+include_once "controller.php";
 
 do {
     echo "\n-------- Menu Distributeur --------\n";

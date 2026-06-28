@@ -1,4 +1,6 @@
 <?php
+include_once "repository.php";
+include_once "validator.php";
 
 function calculerFraisRetrait($montant) {
     $frais = 0;

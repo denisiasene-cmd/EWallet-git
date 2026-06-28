@@ -3,7 +3,12 @@ require_once "repository.php";
 
 function verifiertaille($telephone){
     $telephone = trim($telephone);
-    return strlen($telephone) === 9;
+    // CORRECTION : Utilise le paramètre reçu au lieu de couper l'application avec un readline
+    if (strlen($telephone) === 9) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function verifierNumero($telephone){
@@ -37,12 +42,12 @@ function incite($telephone){
     global $wallets;
     $telephone = trim($telephone);
     
-    if (!isset($wallets) || empty($wallets)) {
+    if (!isset($wallets) || !is_array($wallets) || empty($wallets)) {
         return true;
     }
 
     foreach ($wallets as $wallet) {
-        if (trim($wallet['telephone']) === $telephone) {
+        if (isset($wallet['telephone']) && trim($wallet['telephone']) === $telephone) {
             return false; 
         }
     }
@@ -115,23 +120,24 @@ function controlerSolde($solde){
     }
     return true;
 }
+
 function verifierRetrait($telephone, $montant) {
     global $wallets;
     $telephone = trim($telephone);
     $montant = (float)trim($montant);
 
     if ($montant <= 0) return false;
+    if (!isset($wallets) || !is_array($wallets)) return false;
 
     require_once "services.php";
     $frais = calculerFraisRetrait($montant);
     $sommeTotale = $montant + $frais;
 
     foreach ($wallets as $wallet) {
-        if (trim($wallet['telephone']) === $telephone) {
+        if (isset($wallet['telephone']) && trim($wallet['telephone']) === $telephone) {
             return $wallet['solde'] >= $sommeTotale;
         }
     }
     return false;
 }
-
 ?>
