@@ -32,16 +32,23 @@ function verifierPrefixe($telephone) {
     return false;
 }
 
+
 function incite($telephone){
-    // Permet de s'assurer que le numéro n'est pas déjà pris
     global $wallets;
+    $telephone = trim($telephone);
+    
+    if (!isset($wallets) || empty($wallets)) {
+        return true;
+    }
+
     foreach ($wallets as $wallet) {
-        if ($wallet['telephone'] === $telephone) {
-            return false;
+        if (trim($wallet['telephone']) === $telephone) {
+            return false; 
         }
     }
     return true; 
 }
+
 
 function controllerNumero($telephone){
     $tailleNumero = verifierNumero($telephone);
