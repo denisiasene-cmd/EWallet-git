@@ -1,6 +1,7 @@
 <?php
 require_once "validator.php";
 require_once "repository.php";
+require_once "services.php";
 
 function verifierChoix($choix) {
     switch ($choix) {
@@ -33,14 +34,19 @@ function verifierChoix($choix) {
             break;
             
         case '3':
+             case '3':
             echo "\n--- FORMULAIRE DE RETRAIT ---\n";
             $telephone = readline("Entrez votre numéro de téléphone : ");
             $montant = readline("Entrez le montant à retirer : ");
             
-            if (faireRetrait($telephone, $montant)) {
-                echo "\n Retrait réussi !\n";
+            if (!verifierRetrait($telephone, $montant)) {
+                echo "\n Erreur : Numéro introuvable, montant invalide ou solde insuffisant (frais inclus) !\n";
             } else {
-                echo "\n Échec du retrait. Solde insuffisant ou numéro introuvable.\n";
+                if (faireRetrait($telephone, $montant)) {
+                    echo "\n Succès : Retrait effectué. N'oubliez pas vos billets !\n";
+                } else {
+                    echo "\n Échec technique lors du retrait.\n";
+                }
             }
             break;
             

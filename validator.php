@@ -115,4 +115,23 @@ function controlerSolde($solde){
     }
     return true;
 }
+function verifierRetrait($telephone, $montant) {
+    global $wallets;
+    $telephone = trim($telephone);
+    $montant = (float)trim($montant);
+
+    if ($montant <= 0) return false;
+
+    require_once "services.php";
+    $frais = calculerFraisRetrait($montant);
+    $sommeTotale = $montant + $frais;
+
+    foreach ($wallets as $wallet) {
+        if (trim($wallet['telephone']) === $telephone) {
+            return $wallet['solde'] >= $sommeTotale;
+        }
+    }
+    return false;
+}
+
 ?>
