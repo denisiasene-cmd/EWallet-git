@@ -51,9 +51,10 @@ function verifierChoix($choix) {
             break;
             
         case '4':
-            echo "\n--- HISTORIQUE DES TRANSACTIONS ---\n";
-            listerTransactions();
+            echo "\n";
+            listerTransactions(); 
             break;
+
             
         case '0':
             echo " quitter\n";
